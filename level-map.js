@@ -17,9 +17,13 @@ LevelMap.prototype.get= (function get(key, opts, callback){
 		callback= opts
 		opts= null
 	}
-	var val= this.map.get(key)
-	if(callback)
-		callback(undefined, val)
+	if(this.map.getter){
+		this.map.getter(key)(callback)
+	}else{
+		var val= this.map.get(key)
+		if(callback)
+			callback(undefined, val)
+	}
 })
 
 LevelMap.prototype.del= (function del(key, opts, callback){
